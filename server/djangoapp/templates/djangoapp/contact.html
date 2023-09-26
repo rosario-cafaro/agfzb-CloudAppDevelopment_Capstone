@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dealership Review - Contact Us</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Django app</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="btn btn-link" href="{% url 'djangoapp:index' %}">Home</a>
+                    <a class="btn btn-link" href="{% url 'djangoapp:about' %}">About</a>
+                    <a class="btn btn-link" href="#">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <h1 class="text-center mt-5">
+        <div class="">
+            <!-- Links -->
+            <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+            <p>
+                <i class="fas fa-envelope me-3"></i>
+                info@example.com
+            </p>
+            <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+            <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+        </div>
+    </h1>
+
+</body>
+
+</html>
