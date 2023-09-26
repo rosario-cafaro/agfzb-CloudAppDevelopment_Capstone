@@ -11,20 +11,7 @@
 <body>
 
     <!-- Navigation bar -->
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Django app</a>
-            </div>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a class="btn btn-link" href="{% url 'djangoapp:index' %}">Home</a>
-                    <a class="btn btn-link" href="{% url 'djangoapp:about' %}">About</a>
-                    <a class="btn btn-link" href="#">Contact Us</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    {% include "djangoapp/navbar.html" %}
 
     <h1 class="text-center mt-5">
         <div class="">
@@ -38,6 +25,9 @@
             <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
         </div>
     </h1>
+
+    <!-- Footer -->
+    {% include "djangoapp/footer.html" %}
 
 </body>
 

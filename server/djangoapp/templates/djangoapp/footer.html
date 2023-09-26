@@ -1,0 +1,9 @@
+<div class="footer navbar fixed-bottom bg-light">
+    <ul class="nav navbar-nav">
+        <li>
+            <a class="btn btn-link" href="{% if request.resolver_match.url_name == 'index' %}#{% else %}{% url 'djangoapp:index' %}{% endif %}">Home</a>
+            <a class="btn btn-link" href="{% if request.resolver_match.url_name == 'about' %}#{% else %}{% url 'djangoapp:about' %}{% endif %}">About</a>
+            <a class="btn btn-link" href="{% if request.resolver_match.url_name == 'contact' %}#{% else %}{% url 'djangoapp:contact' %}{% endif %}">Contact Us</a>
+        </li>
+    </ul>
+</div>
