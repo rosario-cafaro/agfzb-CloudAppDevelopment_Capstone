@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Dealership Review</title>
@@ -7,12 +8,37 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 
-    <body>
+<body>
 
-    <!--Add a nav bar here -->
+    <!-- Navigation bar -->
+    {% include "djangoapp/navbar.html" %}
 
     <!-- Add reviews as cards -->
+    <div class="container mt-3">
+        {% if course_list %}
+        <div class="card-deck">
+            {% for review in dealer_details.reviews %}
+            <div class="card" style="width: 36rem;">
 
-    </body>
+                <div class="card-body bg-light">
+                    <h5 class="card-title">{{ review.name }}</h5>
+                    <p class="card-text">{{ review.review }}</p>
+                    <p class="card-text">{{ review.purchase_date }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% else %}
+        <div class="text-center">
+            <p>No reviews available.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    {% include "djangoapp/footer.html" %}
+
+</body>
 
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Dealership Review</title>
@@ -9,7 +10,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css" rel="stylesheet">
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+    <script
+        src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 
 </head>
 
@@ -19,7 +21,41 @@
     {% include "djangoapp/navbar.html" %}
 
     <!--Add a dealer table here -->
-
+    <div class="container mt-3">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Address</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if dealerships.count >= 1 %}
+                {% for dealership in dealerships %}
+                <tr>
+                    <td>{{ dealership.short_name }}</td>
+                    <td>{{ dealership.city }}</td>
+                    <td>{{ dealership.state }}</td>
+                    <td>{{ dealership.address }}</td>
+                    <td>
+                        <a class="btn btn-sm btn-primary" href="{% url 'djangoapp:index' dealer_id=dealership.id %}">Add
+                            review</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">
+                        no results
+                    </td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
 
     <!-- Footer -->
     {% include "djangoapp/footer.html" %}

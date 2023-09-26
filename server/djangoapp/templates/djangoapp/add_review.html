@@ -10,7 +10,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 
 </head>
-    <body>
+<body>
+
     <!--Add review form here -->
-    </body>
+    <div class="container">
+        <h1 class="text-center">Add Transaction</h1>
+        <form action="{% url 'djangoapp:add_review' dealer_id=dealer_id %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="review">Review:</label>
+                <input type="text" name="review" id="review" class="form-control" required>
+            </div>
+            <div class="form-footer">
+                <input class="btn btn-success" type="submit" value="Add Review">
+                <a class="btn btn-info" href="{% url 'djangoapp:index' %}">Go Back</a>
+            </div>
+        </form>
+    </div>
+</body>
 </html>
