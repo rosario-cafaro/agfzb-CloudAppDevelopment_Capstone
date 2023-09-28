@@ -21,38 +21,35 @@
     {% include "djangoapp/navbar.html" %}
 
     <!--Add a dealer table here -->
-    <div class="container mt-3">
-        <table class="table">
+    <div class="container mt-3 mb-5">
+        <table class="table" id="table" data-filter-control="true">
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Dealer Name</th>
                     <th>City</th>
-                    <th>State</th>
                     <th>Address</th>
-                    <th></th>
+                    <th>Zip</th>
+                    <th data-field="state" data-filter-control="select">State</th>
                 </tr>
             </thead>
             <tbody>
-                {% if dealerships.count >= 1 %}
-                {% for dealership in dealerships %}
+                {% for dealer in dealerships %}
                 <tr>
-                    <td>{{ dealership.short_name }}</td>
-                    <td>{{ dealership.city }}</td>
-                    <td>{{ dealership.state }}</td>
-                    <td>{{ dealership.address }}</td>
-                    <td>
-                        <a class="btn btn-sm btn-primary" href="{% url 'djangoapp:index' dealer_id=dealership.id %}">Add
-                            review</a>
-                    </td>
+                    <td>{{ dealer.id }}</td>
+                    <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{ dealer.full_name }}</a></td>
+                    <td>{{ dealer.city }}</td>
+                    <td>{{ dealer.address }}</td>
+                    <td>{{ dealer.zip }}</td>
+                    <td>{{ dealer.st }}</td>
                 </tr>
-                {% endfor %}
-                {% else %}
+                {% empty %}
                 <tr>
                     <td colspan="5" class="text-center">
                         no results
                     </td>
                 </tr>
-                {% endif %}
+                {% endfor %}
             </tbody>
         </table>
     </div>
@@ -60,6 +57,11 @@
     <!-- Footer -->
     {% include "djangoapp/footer.html" %}
 
+    <script>
+        jQuery(function () {
+            jQuery('#table').bootstrapTable()
+        })
+    </script>
 </body>
 
 </html>

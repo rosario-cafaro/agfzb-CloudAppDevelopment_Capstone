@@ -8,24 +8,82 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
-
+    <style>
+        .hidden-elements {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
+    <!-- Navigation bar -->
+    {% include "djangoapp/navbar.html" %}
+
+
+    <div class="m-4">
+        <h5 class="">Add a review about&nbsp;<span class="font-weight-bold">{{ dealer_details.full_name }}</span></h5>
+    </div>
+
     <!--Add review form here -->
     <div class="container">
-        <h1 class="text-center">Add Transaction</h1>
-        <form action="{% url 'djangoapp:add_review' dealer_id=dealer_id %}" method="POST">
+
+        <form id="add_review_form" action="{% url 'djangoapp:add_review' dealer_id=dealer_details.id %}" method="POST">
             {% csrf_token %}
+
             <div class="form-group">
-                <label for="review">Review:</label>
-                <input type="text" name="review" id="review" class="form-control" required>
+                <label class="font-weight-bold" for="content">Enter the review content:</label>
+                <textarea class="form-control" id="content" name="content" rows="2" required></textarea>
             </div>
+            <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="purchasecheck">
+                <label class="form-check-label" for="purchasecheck">Has purchased the car from {{ dealer_details.full_name }} ?</label>
+            </div>
+
+            <div class="form-group hidden-elements">
+                <label class="font-weight-bold" for="car">Select your car (model-make-year):</label>
+                <select name="car" id="car" class="form-select" required>
+                    {% for car in cars %}
+                        <option selected value={{ car.id }}>{{ car.name }}-{{ car.manufacturer.name }}-{{ car.year|date:"Y" }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group hidden-elements">
+                <label class="font-weight-bold" for="purchasedate">Select your purchase date:</label>
+                <input class="date-own form-control" type="text" name="purchasedate" id="purchasedate">
+            </div>
+
+
             <div class="form-footer">
                 <input class="btn btn-success" type="submit" value="Add Review">
-                <a class="btn btn-info" href="{% url 'djangoapp:index' %}">Go Back</a>
+                <a class="btn btn-info" href="{% url 'djangoapp:dealer_details' dealer_id=dealer_details.id %}">Go Back</a>
             </div>
+
+
         </form>
     </div>
+
+    <!-- Footer -->
+    {% include "djangoapp/footer.html" %}
+
+    <script type="text/javascript">
+        jQuery('.date-own').datepicker({
+            format: 'mm/dd/yyyy',
+            autoclose: true
+        });
+
+        jQuery(document).ready(function () {
+            let has_purchased = jQuery('#purchasecheck');
+            has_purchased.change(function () {
+                console.log('changed', jQuery('#purchasecheck:checked').length >= 1);
+                if (jQuery('#purchasecheck:checked').length >= 1) {
+                    jQuery('.hidden-elements').toggle();
+                } else {
+                    jQuery('.date-own').datepicker('setDate', null);
+                    jQuery('.hidden-elements').find('input').val('');
+                    jQuery('.hidden-elements').toggle();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
